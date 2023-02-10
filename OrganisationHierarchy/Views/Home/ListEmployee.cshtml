@@ -1,0 +1,37 @@
+﻿@using NonFactors.Mvc.Grid;
+@model IEnumerable<EmployeeDataModel>
+
+<div>
+@Html.ActionLink("Add User", "AddUser", "Home")
+</div>
+<style>
+        .grid{
+            display: grid;
+            place-items:  center;
+        }
+    </style>
+
+@(
+Html
+                            .Grid(Model)
+                            .Build(columns =>
+                            {
+                                columns.Add(model => model.FirstName).Titled("Name");
+                                columns.Add(model => model.LastName).Titled("Surname");
+                                columns.Add(model => model.Email).Titled("Email");
+                                columns.Add(model => model.StartDate).Titled("StartDate").Formatted("{0:d}");
+                                columns.Add(model => model.EndDate).Titled("EndDate").Formatted("{0:d}");
+                                columns.Add(model => model.Salary).Titled("Salary");
+                                columns.Add(model => model.Position).Titled("Position");
+                                columns.Add()
+                                .Encoded(false)
+                                .RenderedAs(o => Html.ActionLink("Edit", "Edit", new { id = o.Id }));
+                            })
+                            .Using(GridFilterMode.Header)
+                            .Empty("No data found")
+                            .Filterable()
+                            .Sortable()
+                            .Pageable()
+
+
+)

@@ -1,0 +1,30 @@
+﻿@model EmployeeDataModel
+@using (Html.BeginForm("UpdateUser", "Home", FormMethod.Post))  
+{
+    <div>
+   <table class="table">
+   <tr><th>FirstName</th><th>LastName</th><th>Email</th><th>StartDate</th><th>EndDate</th><th>Salary</th><th>Position</th><th>Leader</th></tr>
+       {
+           <tr>
+            @Html.HiddenFor(c => c.Id) 
+           <td>@Html.TextBoxFor(c => c.FirstName)</td>
+           <td>@Html.TextBoxFor(c => c.LastName)</td>
+           <td>@Html.TextBoxFor(c => c.Email)</td>
+
+           <td>@Html.EditorFor(c => c.StartDate, new { @type = "date" })</td>
+           <td>@Html.TextBoxFor(c => c.EndDate, new { @type = "date"})</td>
+           <td>@Html.TextBoxFor(c => c.Salary)</td>
+           <td>
+               @Html.DropDownListFor(c => c.PositionId,
+           new SelectList(Model.Positions, "Id", "Name"))</td>
+           <td>
+           @Html.DropDownListFor(c => c.LeaderId,
+             new SelectList(Model.Leaders, "Id", "Name"))
+           </td>
+           </tr>
+           
+       }
+   </table>
+   <input type="submit" name="submit" value="Save" />
+    </div>
+}
